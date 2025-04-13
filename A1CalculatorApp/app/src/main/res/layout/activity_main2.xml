@@ -20,11 +20,52 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:fontFamily="@font/regular_font"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        tools:ignore="HardCodedText" />
+
+    <Button
+        android:id="@+id/selectDateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Birthdate"
+        android:fontFamily="@font/regular_font"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        tools:ignore="HardCodedText" />
+
+    <TextView
+        android:id="@+id/selectedDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No date selected"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/regular_font"
+        app:layout_constraintTop_toBottomOf="@+id/selectDateButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        tools:ignore="HardCodedText" />
+
+    <ImageView
+        android:id="@+id/zodiacImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="Zodiac Symbol"
+        android:visibility="invisible"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/selectedDateText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_zodiac_placeholder"
+        tools:ignore="HardCodedText"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
