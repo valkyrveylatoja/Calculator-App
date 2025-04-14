@@ -3,9 +3,8 @@ package com.vallatoja.a1calculatorapp
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
@@ -15,9 +14,15 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
+        showWelcomeDialog()
+
         val selectDateButton = findViewById<Button>(R.id.selectDateButton)
         val selectedDateText = findViewById<TextView>(R.id.selectedDateText)
         val zodiacImage = findViewById<ImageView>(R.id.zodiacImage)
+        val zodiacDescriptionText = findViewById<TextView>(R.id.zodiacDescriptionText)
+
+        // Make sure zodiac image is invisible by default
+        zodiacImage.visibility = View.INVISIBLE
 
         selectDateButton.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -31,7 +36,6 @@ class MainActivity2 : AppCompatActivity() {
 
                 val today = Calendar.getInstance()
                 var age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR)
-
                 if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
                     age--
                 }
@@ -39,7 +43,7 @@ class MainActivity2 : AppCompatActivity() {
                 val zodiac = getZodiacSign(dayOfMonth, month)
                 selectedDateText.text = "You are $age years old\nZodiac Sign: $zodiac"
 
-                // Load zodiac image based on sign
+                // Load zodiac image dynamically
                 val zodiacDrawableName = "zodiac_${zodiac.lowercase()}"
                 val resId = resources.getIdentifier(zodiacDrawableName, "drawable", packageName)
 
@@ -47,9 +51,13 @@ class MainActivity2 : AppCompatActivity() {
                     zodiacImage.setImageResource(resId)
                     zodiacImage.visibility = View.VISIBLE
                 } else {
-                    // optional: keep it invisible if no icon
-                    zodiacImage.visibility = View.INVISIBLE
+                    zodiacImage.setImageResource(R.drawable.ic_zodiac_placeholder)
+                    zodiacImage.visibility = View.VISIBLE
                 }
+
+                // Show description
+                val zodiacDescription = zodiacDescriptions[zodiac] ?: "No description available."
+                zodiacDescriptionText.text = zodiacDescription
 
             }, currentYear, currentMonth, currentDay)
 
@@ -58,8 +66,9 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
+    // Zodiac sign based on birthdate
     private fun getZodiacSign(day: Int, month: Int): String {
-        return when (month + 1) { // month is 0-indexed
+        return when (month + 1) {
             1 -> if (day < 20) "Capricorn" else "Aquarius"
             2 -> if (day < 19) "Aquarius" else "Pisces"
             3 -> if (day < 21) "Pisces" else "Aries"
@@ -75,4 +84,32 @@ class MainActivity2 : AppCompatActivity() {
             else -> "Unknown"
         }
     }
+
+    // Welcome dialog
+    private fun showWelcomeDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Welcome!")
+            .setMessage("Thanks for using my Age Calculator ✨\n\nHere you can choose your birthdate to discover your age and zodiac sign.")
+            .setPositiveButton("Let's go!") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    // Zodiac descriptions (fill these in!)
+    private val zodiacDescriptions = mapOf(
+        "Aries" to "Loves to be number one. No stranger to competition.",
+        "Taurus" to "Adores the essence of serene relaxation and tranquility.",
+        "Gemini" to "Spontaneous, playful and adorably erratic.",
+        "Cancer" to "Highly intuitive and their psyche shines in tangible spaces.",
+        "Leo" to "Passionate, loyal and infamously dramatic.",
+        "Virgo" to "Logical, practical and systematic in their approach to life.",
+        "Libra" to "Defines balance, harmony and justice. Strives to create equilibrium in all areas of life.",
+        "Scorpio" to "Elusive and mysterious. Derives extraordinary courage.",
+        "Sagittarius" to "Always on a quest for knowledge. Chasing after geographical intellectual and spiritual adventures.",
+        "Capricorn" to "Knows patience, perseverance and dedication.",
+        "Aquarius" to "Innovative, progressive and shamelessly revolutionary. Dedicated to making the world a better place.",
+        "Pisces" to "Most intuitive, sensitive and empathetic."
+    )
 }
