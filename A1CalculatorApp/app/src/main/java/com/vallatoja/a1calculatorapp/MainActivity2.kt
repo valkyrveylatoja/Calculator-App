@@ -15,7 +15,7 @@ class MainActivity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
         // func for welcome pop up
         showWelcomeDialog()
-        // assigning values to main activity  2ui elements
+        // assigning values to main activity 2 ui elements
         val selectDateButton = findViewById<Button>(R.id.selectDateButton)
         val selectedDateText = findViewById<TextView>(R.id.selectedDateText)
         val zodiacImage = findViewById<ImageView>(R.id.zodiacImage)
@@ -61,8 +61,9 @@ class MainActivity2 : AppCompatActivity() {
                 zodiacDescriptionText.text = zodiacDescription
 
             }, currentYear, currentMonth, currentDay)
-
+            // limit to current date
             datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+            //show calendar modal
             datePickerDialog.show()
         }
     }
