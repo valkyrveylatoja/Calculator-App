@@ -13,37 +13,38 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-
+        // func for welcome pop up
         showWelcomeDialog()
-
+        // assigning values to main activity  2ui elements
         val selectDateButton = findViewById<Button>(R.id.selectDateButton)
         val selectedDateText = findViewById<TextView>(R.id.selectedDateText)
         val zodiacImage = findViewById<ImageView>(R.id.zodiacImage)
         val zodiacDescriptionText = findViewById<TextView>(R.id.zodiacDescriptionText)
 
-        // Make sure zodiac image is invisible by default
+        // make sure zodiac image is invisible by default
         zodiacImage.visibility = View.INVISIBLE
 
         selectDateButton.setOnClickListener {
+            // assigning values to calendar inputs
             val calendar = Calendar.getInstance()
             val currentYear = calendar.get(Calendar.YEAR)
             val currentMonth = calendar.get(Calendar.MONTH)
             val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-
+            // pop up view for calendar
             val datePickerDialog = DatePickerDialog(this, { _, year, month, dayOfMonth ->
                 val birthDate = Calendar.getInstance()
                 birthDate.set(year, month, dayOfMonth)
-
+                // calculating calendar input
                 val today = Calendar.getInstance()
                 var age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR)
                 if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
                     age--
                 }
-
+                // shows text result
                 val zodiac = getZodiacSign(dayOfMonth, month)
                 selectedDateText.text = "You are $age years old\nZodiac Sign: $zodiac"
 
-                // Load zodiac image dynamically
+                // load zodiac image dynamically
                 val zodiacDrawableName = "zodiac_${zodiac.lowercase()}"
                 val resId = resources.getIdentifier(zodiacDrawableName, "drawable", packageName)
 
@@ -51,11 +52,11 @@ class MainActivity2 : AppCompatActivity() {
                     zodiacImage.setImageResource(resId)
                     zodiacImage.visibility = View.VISIBLE
                 } else {
-                    zodiacImage.setImageResource(R.drawable.ic_zodiac_placeholder)
+                    zodiacImage.setImageResource(R.drawable.ic_zodiac_placeholder) // zodiac_x.png replaces ic_zodiac_placeholder (template)
                     zodiacImage.visibility = View.VISIBLE
                 }
 
-                // Show description
+                // show description
                 val zodiacDescription = zodiacDescriptions[zodiac] ?: "No description available."
                 zodiacDescriptionText.text = zodiacDescription
 
@@ -66,7 +67,7 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
-    // Zodiac sign based on birthdate
+    // utility function for zodiac sign based on birthdate
     private fun getZodiacSign(day: Int, month: Int): String {
         return when (month + 1) {
             1 -> if (day < 20) "Capricorn" else "Aquarius"
@@ -85,7 +86,7 @@ class MainActivity2 : AppCompatActivity() {
         }
     }
 
-    // Welcome dialog
+    // welcome dialog
     private fun showWelcomeDialog() {
         AlertDialog.Builder(this)
             .setTitle("Welcome!")
@@ -97,7 +98,7 @@ class MainActivity2 : AppCompatActivity() {
             .show()
     }
 
-    // Zodiac descriptions (fill these in!)
+    // zodiac descriptions
     private val zodiacDescriptions = mapOf(
         "Aries" to "Loves to be number one. No stranger to competition.",
         "Taurus" to "Adores the essence of serene relaxation and tranquility.",

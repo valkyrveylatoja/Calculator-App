@@ -7,7 +7,11 @@
     android:layout_height="match_parent"
     android:background="@color/lightblue"
     tools:context=".MainActivity2">
-
+<!--
+main activity 2
+showcases the actual creative calculator
+-->
+<!--header-->
     <TextView
         android:id="@+id/header"
         android:layout_width="300dp"
@@ -26,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"
         tools:ignore="HardCodedText" />
-
+<!--button that directs you to a calendar modal-->
     <Button
         android:id="@+id/selectDateButton"
         android:layout_width="wrap_content"
@@ -39,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="30dp"
         tools:ignore="HardCodedText" />
-
+<!--displays "no date selected" replaces to age and zodiac sign when given input.-->
     <TextView
         android:id="@+id/selectedDateText"
         android:layout_width="wrap_content"
@@ -54,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         tools:ignore="HardCodedText" />
-
+<!--template for zodiac symbol-->
     <ImageView
         android:id="@+id/zodiacImage"
         android:layout_width="100dp"
@@ -68,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_zodiac_placeholder"
         tools:ignore="HardCodedText"/>
-
+<!--template for zodiac description-->
     <TextView
         android:id="@+id/zodiacDescriptionText"
         android:layout_width="300dp"

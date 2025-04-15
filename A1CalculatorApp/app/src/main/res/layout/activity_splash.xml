@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightblue">
-
+<!--
+splash activity
+img src: sayonara zetsubou sensei
+-->
     <ImageView
         android:id="@+id/splashLogo"
         android:layout_width="match_parent"
