@@ -25,7 +25,7 @@ class MainActivity2 : AppCompatActivity() {
         zodiacImage.visibility = View.INVISIBLE
 
         selectDateButton.setOnClickListener {
-            // assigning values to calendar inputs
+            // assigning values to calendar inputs/getting the recent date
             val calendar = Calendar.getInstance()
             val currentYear = calendar.get(Calendar.YEAR)
             val currentMonth = calendar.get(Calendar.MONTH)
@@ -34,20 +34,20 @@ class MainActivity2 : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(this, { _, year, month, dayOfMonth ->
                 val birthDate = Calendar.getInstance()
                 birthDate.set(year, month, dayOfMonth)
-                // calculating calendar input
+                // calculates exact age if user gets their birthday this year
                 val today = Calendar.getInstance()
                 var age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR)
                 if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
                     age--
                 }
-                // shows text result
+                // uses costume logic to figure out zodiac depending on birth month
                 val zodiac = getZodiacSign(dayOfMonth, month)
                 selectedDateText.text = "You are $age years old\nZodiac Sign: $zodiac"
 
                 // load zodiac image dynamically
                 val zodiacDrawableName = "zodiac_${zodiac.lowercase()}"
                 val resId = resources.getIdentifier(zodiacDrawableName, "drawable", packageName)
-
+                // if image is found, show it. if not, stay to placeholder.
                 if (resId != 0) {
                     zodiacImage.setImageResource(resId)
                     zodiacImage.visibility = View.VISIBLE
@@ -69,7 +69,7 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     // utility function for zodiac sign based on birthdate
-    private fun getZodiacSign(day: Int, month: Int): String {
+    private fun getZodiacSign(day: Int, month: Int): String { // returns a zodiac name based on day and month
         return when (month + 1) {
             1 -> if (day < 20) "Capricorn" else "Aquarius"
             2 -> if (day < 19) "Aquarius" else "Pisces"
@@ -100,7 +100,7 @@ class MainActivity2 : AppCompatActivity() {
     }
 
     // zodiac descriptions
-    private val zodiacDescriptions = mapOf(
+    private val zodiacDescriptions = mapOf( // an immutable description map. a look up table that holds 12 zodiac signs names and their respective descriptions.
         "Aries" to "Loves to be number one. No stranger to competition.",
         "Taurus" to "Adores the essence of serene relaxation and tranquility.",
         "Gemini" to "Spontaneous, playful and adorably erratic.",
