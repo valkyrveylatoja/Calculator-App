@@ -25,12 +25,12 @@ class MainActivity2 : AppCompatActivity() {
         zodiacImage.visibility = View.INVISIBLE
 
         selectDateButton.setOnClickListener {
-            // assigning values to calendar inputs/getting the recent date
+            // assigning values to calendar inputs
             val calendar = Calendar.getInstance()
             val currentYear = calendar.get(Calendar.YEAR)
             val currentMonth = calendar.get(Calendar.MONTH)
             val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-            // pop up view for calendar
+            // getting the recent date
             val datePickerDialog = DatePickerDialog(this, { _, year, month, dayOfMonth ->
                 val birthDate = Calendar.getInstance()
                 birthDate.set(year, month, dayOfMonth)
@@ -63,7 +63,7 @@ class MainActivity2 : AppCompatActivity() {
             }, currentYear, currentMonth, currentDay)
             // limit to current date
             datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
-            //show calendar modal
+            // show calendar modal
             datePickerDialog.show()
         }
     }
